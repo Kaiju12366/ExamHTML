@@ -1,1 +1,40 @@
-This is also Test
+<?php
+
+$idname = $_POST["idname"];
+$idfaculty = $_POST["idfaculty"];
+$idhours = $_POST["idhours"];
+$amount;
+if($idfaculty == 'IT')
+{
+  $amount = 70;
+}
+elseif ($idfaculty == 'Science')
+{
+  $amount = 62;
+}
+elseif ($idfaculty == 'Business')
+{
+  $amount = 78;
+}
+elseif ($idfaculty == 'Health')
+{
+  $amount = 54;
+}
+else
+{
+  $amount = 1;
+}
+
+if($idhours >=9 && $idhours <=19)
+{
+  $finalamount = $idhours * $amount;
+}
+else
+{
+  $finalamount = "Enter Valid Hours";
+
+}
+
+
+echo $idfaculty;
+?>
