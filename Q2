@@ -1,0 +1,147 @@
+<?php
+
+
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+
+          if (isset($_POST['UPDATEBTN']))
+          {
+            $idupdateprice = $_POST["idupdateprice"];
+            $idupdate = $_POST["idupdate"];
+
+            // UPDATE `db_table` SET `listPrice` = '255' WHERE `db_table`.`categoryID` = 1;
+            try {
+                $conn = new PDO("mysql:host=$servername;dbname=my_guitar_shop1", $username, $password);
+                // set the PDO error mode to exception
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                $sql = "UPDATE `db_table` SET `listPrice` = '$idupdateprice' WHERE `db_table`.`categoryID` = '$idupdate';";
+                // use exec() because no results are returned
+                $conn->exec($sql);
+
+                }
+                  catch(PDOException $e)
+                {
+                echo "Connection failed: " . $e->getMessage();
+                }
+          }
+          else
+          {
+            $idcategory = $_POST["idcategory"];
+            $idcode = $_POST["idcode"];
+            $idname = $_POST["idname"];
+            $idprice = $_POST["idprice"];
+            try {
+                $conn = new PDO("mysql:host=$servername;dbname=my_guitar_shop1", $username, $password);
+                // set the PDO error mode to exception
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                $sql = "INSERT INTO `db_table` ( `categoryID`, `productCode`, `productName`, `listPrice`) VALUES ( '$idcategory', '$idcode', '$idname', '$idprice');";
+                // use exec() because no results are returned
+                $conn->exec($sql);
+
+                }
+                  catch(PDOException $e)
+                {
+                echo "Connection failed: " . $e->getMessage();
+                }
+          }
+    }
+
+
+?>
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Q2</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<link rel="stylesheet"  type="text/css" href="odometer-theme-default.css" />
+<!-- <script src="logic.js"></script> -->
+<script src="odometer.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Easy Contact Form  Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<!--web-fonts-->
+<!-- <link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'> -->
+
+<!--web-fonts-->
+</head>
+<body>
+   <!---header--->
+   <div class="header">
+     <h1>Q2 C0700704</h1>
+   </div>
+   <!---header--->
+   <!---main--->
+     <div class="main">
+       <div class="main-section">
+         <div class="login-form">
+           <h2>Enter Data</h2>
+           <form method=POST>
+           <ul>
+                <li class="text-info">CategoryID:</li>
+                <li><input type="number" placeholder="" required id="idcategory" name="idcategory"></li>
+                <div class="clear"></div>
+              </ul>
+              <ul>
+                    <li class="text-info">Code:</li>
+                    <li><input type="number" placeholder="" required id="idcode" name="idcode"></li>
+                    <!-- <li>
+                      <select name="idfaculty">
+                        <option value="IT">IT</option>
+                        <option value="Science">Science</option>
+                        <option value="Business">Business</option>
+                        <option value="Health">Health</option>
+                      </select>
+                    </li> -->
+                    <div class="clear"></div>
+               </ul>
+               <ul>
+                    <li class="text-info">Name:</li>
+                    <li><input type="text" placeholder="" required id="idname" name="idname"></li>
+                    <div class="clear"></div>
+               </ul>
+              <ul>
+                <li class="text-info">Price:</li>
+                <li><input type="number" placeholder="" required id="idprice" name="idprice">
+                </li>
+                <div class="clear"></div>
+              </ul>
+
+
+             <!-- <input type="button" value="done" onclick="myFunction()"> -->
+             <input type="submit" name="DONE" value="Done">
+           </form>
+           <form method=POST>
+             <ul>
+               <li class="text-info">UpdateID:</li>
+               <li><input type="number" placeholder="Enter ID" required id="idupdate" name="idupdate">
+               </li>
+               <div class="clear"></div>
+             </ul>
+             <ul>
+               <li class="text-info">UpdatePrice:</li>
+               <li><input type="number" placeholder="Enter Price" required id="idupdateprice" name="idupdateprice">
+               </li>
+               <div class="clear"></div>
+             </ul>
+             <input type="submit" name="UPDATEBTN" value="UPDATE">
+
+           </form>
+         </div>
+       </div>
+     </div>
+     <div class="footer">
+     <p>Easy way to handle data.</p>
+   </div>
+
+   <!---main--->
+</body>
+</html>
