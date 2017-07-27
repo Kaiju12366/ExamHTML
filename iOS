@@ -1,0 +1,128 @@
+//insertData.swift
+
+//
+//  insertData.swift
+//  C0700704
+//
+//  Created by YASH on 2017-07-27.
+//  Copyright © 2017 YASH. All rights reserved.
+//
+
+import UIKit
+
+import CoreData
+
+class insertData: UIViewController, UITextFieldDelegate, UIPickerViewDelegate{
+
+    @IBOutlet weak var sID: UITextField!
+    @IBOutlet weak var sNAME: UITextField!
+    @IBOutlet weak var sAGE: UITextField!
+    @IBOutlet weak var sMAJOR: UITextField!
+    
+    
+    var pickerData = ["IT","Business","Accounting"]
+    
+    var pickerView = UIPickerView()
+
+    
+    
+    @IBAction func sINSERT(_ sender: UIButton)
+    {
+        if sID.text == "" || sNAME.text == "" || sAGE.text == "" || sMAJOR.text == ""
+        {
+            alert(message: "Enter Valid Data First", title: "Error")
+        }
+        else
+        {
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            let newStudent = NSEntityDescription.insertNewObject(forEntityName: "Students", into: context)
+            
+            
+            let sID : Int16 = Int16(self.sID.text!)!
+            let sNAME : String = String(self.sNAME.text!)
+            let sAGE : String = String(self.sAGE.text!)
+            let sMAJOR : String = String(self.sMAJOR.text!)
+            
+            
+            newStudent.setValue(sID, forKey: "studentID")
+            newStudent.setValue(sNAME, forKey: "studentName")
+            newStudent.setValue(sAGE, forKey: "studentAge")
+            newStudent.setValue(sMAJOR, forKey: "studentMajor")
+            
+            
+            
+        }
+    }
+    
+    
+    func alert(message: String, title: String)
+    {
+        let alertController = UIAlertController(title: title, message: message,
+                                                preferredStyle:  .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(OKAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        //DismissKeyboard
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(insertData.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        //DismissKeyboard Done
+    
+        pickerView.delegate = self
+        sMAJOR.inputView = pickerView
+    }
+
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int
+    {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
+    {
+        return 5
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "Hello"
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        sMAJOR.text = "Test"
+    }
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
+    
+    //Dismisskeyboard Touch
+    func dismissKeyboard()
+    {
+        view.endEditing(true)
+    }
+    //Dismisskeyboard Touch Done
+
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
+
+
+
+//insertData.swift
